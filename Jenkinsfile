@@ -6,15 +6,8 @@ stages {
             steps {
                 echo "Building the project and creating the build artifact..."
                 // Run Maven in Windows. The 'bat' command executes shell commands in CMD.
-                bat 'mvn clean package -DskipTests'
-            }
-            post {
-                success {
-                    echo "Build successful, archiving the JAR artifact..."
-                    // Adjust the artifact path if needed. Note the Windows path separator.
-                    archiveArtifacts artifacts: 'target\\*.jar', fingerprint: true
-                }
-            }
+                bat 'mvn -B -DskipTests clean package'
+            
         }
         stage('Test') {
             steps {
