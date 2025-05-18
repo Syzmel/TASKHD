@@ -1,12 +1,7 @@
 pipeline {
     agent any
 
-    // Define tools, if you have them configured in Jenkins' global tool configuration.
-    tools {
-        // Replace 'Maven 3.x' with your Maven installation name.
-        maven 'Maven 3.x'
-        // Optionally, specify a JDK here (e.g. 'JDK 11')
-        // jdk 'JDK 11'
+    
     }
 
     stages {
