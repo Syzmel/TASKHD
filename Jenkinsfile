@@ -7,7 +7,7 @@ stages {
                 echo "Building the project and creating the build artifact..."
                 // Run Maven in Windows. The 'bat' command executes shell commands in CMD.
                 bat 'mvn -B -DskipTests clean package'
-            
+            } 
         }
         stage('Test') {
             steps {
