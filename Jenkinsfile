@@ -1,13 +1,7 @@
 pipeline {
     agent any
 stages {
-        stage('Checkout') {
-            steps {
-                echo "Checking out the source code..."
-                // Replace the Git URL with your repository.
-                git 'https://github.com/your_user/your_repository.git'
-            }
-        }
+
         stage('Build') {
             steps {
                 echo "Building the project and creating the build artifact..."
