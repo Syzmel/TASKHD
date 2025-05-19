@@ -2,11 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
-            steps {
-                // Your build steps (e.g., Maven build, Docker build)
-            }
-        }
+
         stage('Deploy') {
             steps {
                 withAWS(credentials: '1c4150806224e585e8db183ab45af7b83a4341f530f70175b64d945ea6b0fd03') {
