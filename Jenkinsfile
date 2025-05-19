@@ -31,19 +31,19 @@ pipeline {
                       }
                 }
             }
-    stage('Run Selenium Tests') {
-      steps {
-            bat "mvn test"
-        }
-      }
-      post {
-        always {
+        stage('Run Selenium Tests') {
+            steps {
+              bat "mvn test"
+        }     
+        post {
+           always {
                     // Archive test reports from the Maven Surefire plugin,
                     // so you can see detailed results from your Selenium tests.
                     junit 'target/surefire-reports/*.xml'
-
-     }
+                }
+            }
         }
+     
 
       
         stage('Code Quality') {
