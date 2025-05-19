@@ -21,7 +21,9 @@ pipeline {
             steps {
                 script {
                     // Run tests using Maven - will execute JUnit tests through the Surefire plugin.
-                    {
+                    if (isUnix()) {
+                        sh 'mvn test'
+                    } else {
                         bat 'mvn test'
                     }
                 }
