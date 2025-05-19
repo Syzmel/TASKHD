@@ -5,7 +5,8 @@ pipeline {
         stage('Deploy to Elastic Beanstalk') {
             steps {
                 script {
-                    // Integrate your deployment commands here
+                       echo "Deploying to AWS Elastic Beanstalk..."
+                       bat "deploy_to_eb.bat"
                 }
             }
         }
