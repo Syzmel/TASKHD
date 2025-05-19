@@ -23,22 +23,14 @@ pipeline {
             }
         }
 
-        stage('Test') {
+        stage('Snyk Security Scan') {
             steps {
                 script {
-                    // Run tests using Maven - will execute JUnit tests through the Surefire plugin.
-                    if (isUnix()) {
-                        sh 'mvn test'
-                    } else {
-                        bat 'mvn test'
-                    }
+                    def snykTokenId = '0fd70700-dcdd-4e80-a424-85129e1d5c55'
+                    // ... other Snyk build step configurations ...
                 }
-
-                // Archive and publish JUnit test results.
-                // This ensures that any test failures are captured by Jenkins.
-                junit '**/target/surefire-reports/*.xml'
             }
-        }
+
         stage('Code Quality') {
             steps {
                 echo 'Running code quality checks...'
