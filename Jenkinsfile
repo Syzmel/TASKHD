@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        MAVEN_HOME = 'C:\\ProgramFiles\\Maven\\apache-maven-3.9.9'
+        MAVEN_HOME = 'C:\\Program Files\\Maven\\apache-maven-3.9.9'
         //SONARQUBE_SERVER = 'http://your-sonarqube-server'
         AWS_CREDENTIALS = '1c4150806224e585e8db183ab45af7b83a4341f530f70175b64d945ea6b0fd03'
         DEPLOY_ENV = 'staging'
