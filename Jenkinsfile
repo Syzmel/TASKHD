@@ -15,8 +15,7 @@ pipeline {
                       environmentName: 'Ardavan-env',
                       region: 'Asia Pasific(Sydney)',
                       sourcePath: 'http://ardavan-env.eba-bxeqxxzd.ap-southeast-2.elasticbeanstalk.com/',
-                      applicationVersion: "1.0.0" // Or use a dynamic version
-                    )
+                      applicationVersion: "1.0.0" // Or use a dynamic version)
                 }
             }
         }
