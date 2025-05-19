@@ -1,20 +1,25 @@
-    pipeline {
-        agent any
-        stages {
-            stage('Build') {
-                steps {
-                    // Build your application
-                }
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                // Your build steps (e.g., Maven build, Docker build)
             }
-            stage('Deploy to Staging') {
-                steps {awsEBDeploy 
-                       {applicationName 'Ardavan'
-                        environmentName 'Ardavan-env'
-                        region 'Asia Pasific(Sydney)'
-                        credentialsId '1c4150806224e585e8db183ab45af7b83a4341f530f70175b64d945ea6b0fd03'
-                        // Other Elastic Beanstalk configurations
-                    }
+        }
+        stage('Deploy') {
+            steps {
+                withAWS(credentials: '1c4150806224e585e8db183ab45af7b83a4341f530f70175b64d945ea6b0fd03') {
+                    awsebDeployment(
+                      applicationName: 'Ardavan',
+                      environmentName: 'Ardavan-env',
+                      region: 'Asia Pasific(Sydney)',
+                      sourcePath: 'http://ardavan-env.eba-bxeqxxzd.ap-southeast-2.elasticbeanstalk.com/',
+                      applicationVersion: "1.0.0" // Or use a dynamic version
+                    )
                 }
             }
         }
     }
+}
+
