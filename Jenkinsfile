@@ -35,9 +35,9 @@ pipeline {
       steps {
         script {
           // Install Appium and other required dependencies (e.g., using npm)
-          sh "npm install -g appium"
+          bat "npm install -g appium"
           // Install your test framework (e.g., WebDriverIO)
-          sh "npm install -g webdriverio"
+          bat "npm install -g webdriverio"
         }
       }
     }
@@ -46,11 +46,11 @@ pipeline {
       steps {
         script {
           // Start Appium server (if needed)
-          sh "appium -s 127.0.0.1:4723"
+          bat "appium -s 127.0.0.1:4723"
 
           // Execute your Appium tests (using WebDriverIO, Selenium, etc.)
           // Example using WebDriverIO:
-          sh "webdriverio ./path/to/your/tests/web/my_tests.js"
+          bat "webdriverio ./path/to/your/tests/web/my_tests.js"
         }
       }
     }
