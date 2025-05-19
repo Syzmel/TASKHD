@@ -20,5 +20,6 @@ pipeline {
                 // Build your project; adjust the script based on your project configuration
                 bat 'npm run build'
           }
+      } 
 }
 
