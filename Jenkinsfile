@@ -7,6 +7,6 @@ pipeline {
                     // ... other Snyk build step configurations ...
                 }
             }
-        
-    
-}
+    }
+      
+   }
