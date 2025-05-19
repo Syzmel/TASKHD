@@ -12,7 +12,7 @@ pipeline {
        stage('Checkout') {
             steps {
                 // Pull your project source code from your repository
-                checkout scm
+                https://github.com/Syzmel/TASKHD.git
             }
         }
         stage('Build') {
