@@ -7,8 +7,7 @@
                 }
             }
             stage('Deploy to Staging') {
-                steps {
-                    awsEBDeploy {
+                steps {awsEBDeploy {
                         applicationName 'Ardavan'
                         environmentName 'Ardavan-env'
                         region 'Asia Pasific(Sydney)'
