@@ -12,7 +12,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the application...'
-                bat '"%MAVEN_HOME%\\bin\\mvn -e" clean package'
+                bat '"%MAVEN_HOME%\\bin\\mvn" clean package'
                 archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
             }
         }
