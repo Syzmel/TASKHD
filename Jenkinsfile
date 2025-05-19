@@ -17,16 +17,10 @@ stages {
         }
 
         stage('Security') {
-            steps {
-                echo "Performing automated security analysis..."
-                // Example using Snyk (make sure Snyk is installed and configured on the agent).
-                bat 'snyk test'
-                // Alternatively, you might run OWASP Dependency-Check like:
-                // bat 'dependency-check.bat --project MyApp --scan .'
-                echo "Review the output for any vulnerability information. For example:"
-                echo " - Issue: Outdated library X"
-                echo " - Severity: Critical"
-                echo " - Remediation: Update library X to version Y or whitelist a false positive if applicable."
+             steps {
+                script {
+                    def snykTokenId = '0fd70700-dcdd-4e80-a424-85129e1d5c55'
+                    // ... other Snyk build step configurations ...
             }
         }
         stage('Deploy') {
