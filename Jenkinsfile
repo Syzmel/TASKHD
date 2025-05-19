@@ -46,11 +46,11 @@ pipeline {
       steps {
         script {
           // Start Appium server (if needed)
-          bat "appium -s 127.0.0.1:4723"
-
+          bat "appium --version"
+          bat "webdriverio --version"
           // Execute your Appium tests (using WebDriverIO, Selenium, etc.)
           // Example using WebDriverIO:
-          bat "webdriverio ./path/to/your/tests/web/my_tests.js"
+          //bat "webdriverio ./path/to/your/tests/web/my_tests.js"
         }
       }
     }
