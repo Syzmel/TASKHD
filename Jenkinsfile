@@ -9,6 +9,17 @@ pipeline {
                 }
             }
         }
+    stage('Deploy to Staging') {
+         steps {
+                    awsEBDeploy {
+                        applicationName 'your-application-name'
+                        environmentName 'staging-env'
+                        region 'your-aws-region'
+                        credentialsId 'your-aws-credentials-id'
+                        // Other Elastic Beanstalk configurations
+                    }
+                }
+            }
     }
 }
 
