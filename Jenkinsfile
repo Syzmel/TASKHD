@@ -1,14 +1,21 @@
-pipeline {
-    agent any
-
-    stages {
-        stage('Deploy to Elastic Beanstalk') {
-            steps {
-                script {
-                       echo "Deploying to AWS Elastic Beanstalk..."
-                       bat "deploy_to_eb.bat"
+    pipeline {
+        agent any
+        stages {
+            stage('Build') {
+                steps {
+                    // Build your application
+                }
+            }
+            stage('Deploy to Staging') {
+                steps {
+                    awsEBDeploy {
+                        applicationName 'Ardavan'
+                        environmentName 'Ardavan-env'
+                        region 'Asia Pasific(Sydney)'
+                        credentialsId '1c4150806224e585e8db183ab45af7b83a4341f530f70175b64d945ea6b0fd03'
+                        // Other Elastic Beanstalk configurations
+                    }
                 }
             }
         }
     }
-}
