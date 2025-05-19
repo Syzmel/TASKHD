@@ -31,7 +31,23 @@ pipeline {
                       }
                 }
             }
+        stage('Run Tests') {
+           steps {
+             script {
+                // Start Appium server (if needed)
+                bat "appium -s 127.0.0.1:4723"
 
+               // Execute your Appium tests (using WebDriverIO, Selenium, etc.)
+              // Example using WebDriverIO:
+              bat "webdriverio ./path/to/your/tests/web/my_tests.js"
+        }
+      }
+    }
+
+
+
+
+      
         stage('Code Quality') {
             steps {
                 echo 'Running code quality checks...'
