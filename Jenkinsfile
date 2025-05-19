@@ -19,11 +19,18 @@ pipeline {
 
         stage('Test') {
             steps {
-                echo 'Running automated tests...'
-                bat '"%MAVEN_HOME%\\bin\\mvn" test'
+                script {
+                    // Run tests using Maven - will execute JUnit tests through the Surefire plugin.
+                    {
+                        bat 'mvn test'
+                    }
+                }
+
+                // Archive and publish JUnit test results.
+                // This ensures that any test failures are captured by Jenkins.
+                junit '**/target/surefire-reports/*.xml'
             }
         }
-
         stage('Code Quality') {
             steps {
                 echo 'Running code quality checks...'
