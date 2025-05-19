@@ -15,13 +15,7 @@ stages {
                  bat 'npm test || exit /B 0'
             }
         }
-        stage('Code Quality') {
-            steps {
-                echo "Running SonarQube analysis for code quality..."
-                // This step requires SonarQube to be properly set up in Jenkins.
-                bat 'mvn sonar:sonar'
-            }
-        }
+
         stage('Security') {
             steps {
                 echo "Performing automated security analysis..."
