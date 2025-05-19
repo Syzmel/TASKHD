@@ -31,31 +31,19 @@ pipeline {
                       }
                 }
             }
-    stage('Install Dependencies') {
+    stage('Run Selenium Tests') {
       steps {
-        script {
-          // Install Appium and other required dependencies (e.g., using npm)
-          bat "npm install -g appium"
-          // Install your test framework (e.g., WebDriverIO)
-          bat "npm install -g webdriverio"
+            bat "mvn test"
         }
       }
-    }
+      post {
+        always {
+                    // Archive test reports from the Maven Surefire plugin,
+                    // so you can see detailed results from your Selenium tests.
+                    junit 'target/surefire-reports/*.xml'
 
-    stage('Run Tests') {
-      steps {
-        script {
-          // Start Appium server (if needed)
-          bat "appium --version"
-          bat "webdriverio --version"
-          // Execute your Appium tests (using WebDriverIO, Selenium, etc.)
-          // Example using WebDriverIO:
-          //bat "webdriverio ./path/to/your/tests/web/my_tests.js"
+     }
         }
-      }
-    }
-
-
 
       
         stage('Code Quality') {
