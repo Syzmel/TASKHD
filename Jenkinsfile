@@ -1,6 +1,7 @@
 pipeline {
     agent any
-    stage('Snyk Security Scan') {
+    stages {
+         stage('Snyk Security Scan') {
             steps {
                 script {
                     def snykTokenId = '0fd70700-dcdd-4e80-a424-85129e1d5c55'
