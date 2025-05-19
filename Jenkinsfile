@@ -1,25 +1,63 @@
 pipeline {
     agent any
-    stages {
-         stage('Snyk Security Scan') {
-            steps {
-                script {
-                    def snykTokenId = '0fd70700-dcdd-4e80-a424-85129e1d5c55'
-                    // ... other Snyk build step configurations ...
-                }
-            }
-         }
-         stage('Install Dependencies') {
-            steps {
-                // Install dependencies using npm ci for a clean and reproducible install
-                bat 'npm ci'
-            }
-         }
-         stage('Build') {
-            steps {
-                // Build your project; adjust the script based on your project configuration
-                bat 'npm run build'
-          }
-      } 
-}
 
+    environment {
+        MAVEN_HOME = 'C:\\Path\\To\\Maven'
+        //SONARQUBE_SERVER = 'http://your-sonarqube-server'
+        AWS_CREDENTIALS = '1c4150806224e585e8db183ab45af7b83a4341f530f70175b64d945ea6b0fd03'
+        DEPLOY_ENV = 'staging'
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building the application...'
+                bat '"%MAVEN_HOME%\\bin\\mvn" clean package'
+                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Running automated tests...'
+                bat '"%MAVEN_HOME%\\bin\\mvn" test'
+            }
+        }
+
+        stage('Code Quality') {
+            steps {
+                echo 'Running code quality checks...'
+                bat '"%MAVEN_HOME%\\bin\\mvn" sonar:sonar -Dsonar.host.url=%SONARQUBE_SERVER%'
+            }
+        }
+
+        stage('Security') {
+            steps {
+                echo 'Running security checks...'
+                bat '"%MAVEN_HOME%\\bin\\mvn" snyk:test'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo "Deploying application to ${DEPLOY_ENV}..."
+                bat 'aws elasticbeanstalk deploy --application your-app --environment ${DEPLOY_ENV}'
+            }
+        }
+
+        stage('Release') {
+            steps {
+                echo 'Releasing to production...'
+                bat 'aws deploy create-deployment --application-name your-app --deployment-group-name production'
+            }
+        }
+
+        stage('Monitoring and Alerting') {
+            steps {
+                echo 'Setting up monitoring...'
+                bat 'newrelic-cli install --api-key your-api-key'
+                bat 'datadog-agent start'
+            }
+        }
+    }
+}
