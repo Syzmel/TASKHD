@@ -1,24 +1,22 @@
 pipeline {
     agent any
-
     stages {
         stage('Build') {
             steps {
-                // Your build steps (e.g., Maven build, Docker build)
+                // Build your application
             }
         }
-        stage('Deploy') {
+        stage('Deploy to Staging') {
             steps {
-                withAWS(credentials: '1c4150806224e585e8db183ab45af7b83a4341f530f70175b64d945ea6b0fd03') {
-                    awsebDeployment(
-                      applicationName: 'Ardavan',
-                      environmentName: 'Ardavan-env',
-                      region: 'Asia Pasific(Sydney)',
-                      sourcePath: 'http://ardavan-env.eba-bxeqxxzd.ap-southeast-2.elasticbeanstalk.com/',
-                      applicationVersion: "1.0.0" // Or use a dynamic version)
+                withCredentials([string(credentialsId: '1c4150806224e585e8db183ab45af7b83a4341f530f70175b64d945ea6b0fd03')]) {
+                    bat '''
+                    set AWS_ACCESS_KEY_ID=<Your_Access_Key>
+                    set AWS_SECRET_ACCESS_KEY=%AWS_SECRET%
+                    aws elasticbeanstalk update-environment --application-name "Ardavan" ^
+                    --environment-name "Ardavan-env" --region "Asia Pacific(Sydney)"
+                    '''
                 }
             }
         }
     }
 }
-
