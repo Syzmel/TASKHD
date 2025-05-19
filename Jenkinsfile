@@ -9,11 +9,17 @@ pipeline {
     }
 
     stages {
+       stage('Checkout') {
+            steps {
+                // Pull your project source code from your repository
+                checkout scm
+            }
+        }
         stage('Build') {
             steps {
                 echo 'Building the application...'
                 bat '"%MAVEN_HOME%\\bin\\mvn" clean package'
-                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+                //archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
             }
         }
 
