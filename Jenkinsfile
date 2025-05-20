@@ -6,10 +6,7 @@ pipeline {
             steps {
                                            bat '''
                             sonar-scanner ^
-                            -Dsonar.projectKey=Syzmel_TASKHD ^
-                            -Dsonar.projectName=TASKHD ^
-                            -Dsonar.projectVersion=1.0 ^
-                            -Dsonar.sources=. ^
+
                          '''
             }
         }
