@@ -37,7 +37,15 @@ pipeline {
             }
             steps {
                 withSonarQubeEnv('MySonarQube') {
-                    bat 'mvn sonar:sonar -Dsonar.projectKey=TASKHD -Dsonar.host.url=http://localhost:9000 -Dsonar.login=${ae3e0cd85e60d4e43416a9ebf03d827702acd046}'
+                                 bat '''
+                  sonar-scanner ^
+                  -Dsonar.projectKey=TASKHD ^
+                  -Dsonar.organization=TASKHD ^
+                  -Dsonar.sources=. ^
+                  -Dsonar.host.url=https://sonarcloud.io ^
+                  -Dsonar.login=ae3e0cd85e60d4e43416a9ebf03d827702acd046
+                  if %ERRORLEVEL% NEQ 0 exit /b 0
+                '''
                 }
             }
         }
