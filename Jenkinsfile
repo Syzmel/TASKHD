@@ -1,77 +1,84 @@
 pipeline {
-    agent any 
+    agent any
+
+    environment {
+        //MAVEN_HOME = 'C:\\Program Files\\Maven\\apache-maven-3.9.9\\'
+        //SONARQUBE_SERVER = 'http://your-sonarqube-server'
+        AWS_CREDENTIALS = '1c4150806224e585e8db183ab45af7b83a4341f530f70175b64d945ea6b0fd03'
+        DEPLOY_ENV = 'staging'
+    }
 
     stages {
+       stage('Checkout') {
+            steps {
+                // Pull your project source code from your repository
+                checkout scm
+            }
+        }
+        stage('Build') {
+            steps {
+                echo 'Building the application...'
+                bat 'mvn clean install -Dmaven.test.skip=true'
+                //archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+            }
+        }
 
-        stage('Test (Selenium)') {
+        stage('Snyk Security Scan') {
             steps {
-                // Start the application in background for testing
-                // (Assumes the app listens on localhost:8080)
-                bat 'start /B cmd /C "java -jar target\\myapp.jar --server.port=8080"'
-                // Give the app time to start up
-                sleep time: 30, unit: 'SECONDS'
-                // Run Selenium integration tests (e.g. via Maven or direct invocation)
-                bat 'mvn test -Dtest=ui.* -Dbrowser=chrome'
-                // Stop the background app (force kill)
-                bat 'taskkill /IM java.exe /F || echo "Server stopped."'
+                script {
+                    def snykTokenId = '0fd70700-dcdd-4e80-a424-85129e1d5c55'
+                    // ... other Snyk build step configurations ...
+                      }
+                }
             }
-        }
-        stage('Code Analysis') {
+        stage('Run Selenium Tests') {
             steps {
-                // SonarQube static analysis (using configured SonarQube server)
-                withSonarQubeEnv('SonarQube-Server') {
-                    bat 'mvn sonar:sonar'
+              bat "mvn test"
+        }     
+        post {
+           always {
+                    // Archive test reports from the Maven Surefire plugin,
+                    // so you can see detailed results from your Selenium tests.
+                    junit 'target/surefire-reports/*.xml'
                 }
             }
         }
-        stage('Quality Gate') {
+     
+
+      
+        stage('Code Quality') {
             steps {
-                // Wait for SonarQube quality gate result (optional; requires webhook)
-                timeout(time: 5, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
-                }
+                echo 'Running code quality checks...'
+                bat '"%MAVEN_HOME%\\bin\\mvn" sonar:sonar -Dsonar.host.url=%SONARQUBE_SERVER%'
             }
         }
-        stage('Security Scan') {
+
+        stage('Security') {
             steps {
-                // OWASP Dependency-Check vulnerability scan
-                dependencyCheck additionalArguments: '--project "MyApp" --scan . --format XML', odcInstallation: 'OWASP Dependency-Check'
-                // Publish Dependency-Check report and fail on high vulnerabilities
-                dependencyCheckPublisher pattern: 'dependency-check-report.xml', 
-                                        failedTotalHigh: 0, failedTotalCritical: 0, 
-                                        unstableTotalHigh: 10, 
-                                        skipFailed: false, stopBuild: true
+                echo 'Running security checks...'
+                bat '"%MAVEN_HOME%\\bin\\mvn" snyk:test'
             }
         }
-        stage('Deploy to Staging') {
+
+        stage('Deploy') {
             steps {
-                // Deploy to AWS Elastic Beanstalk (staging)
-                step([$class: 'AWSEBDeploymentBuilder', config: [
-                    applicationName: 'MyApp-EB-App',
-                    awsRegion:       'us-east-1',
-                    bucketName:      'my-eb-artifacts-bucket',
-                    environmentName: 'myapp-staging-env',
-                    credentialId:    'aws-creds-id',
-                    rootObject:      'target/myapp.jar',
-                    includes:        'target/*.jar'
-                ]])
+                echo "Deploying application to ${DEPLOY_ENV}..."
+                bat 'aws elasticbeanstalk deploy --application your-app --environment ${DEPLOY_ENV}'
             }
         }
-        stage('Release to Production') {
+
+        stage('Release') {
             steps {
-                // Deploy to AWS Elastic Beanstalk (production) or CodeDeploy
-                step([$class: 'AWSEBDeploymentBuilder', config: [
-                    applicationName: 'MyApp-EB-App',
-                    awsRegion:       'us-east-1',
-                    bucketName:      'my-eb-artifacts-bucket',
-                    environmentName: 'myapp-prod-env',
-                    credentialId:    'aws-creds-id',
-                    rootObject:      'target/myapp.jar',
-                    includes:        'target/*.jar'
-                ]])
-                // Alternatively, use AWS CodeDeploy:
-                // step([$class: 'AWSCodeDeployPublisher', s3bucket: 'my-codedeploy-bucket',
-                //       s3prefix: 'releases/', applicationName: 'MyApp', deploymentGroupName: 'MyApp-Prod'])
+                echo 'Releasing to production...'
+                bat 'aws deploy create-deployment --application-name your-app --deployment-group-name production'
+            }
+        }
+
+        stage('Monitoring and Alerting') {
+            steps {
+                echo 'Setting up monitoring...'
+                bat 'newrelic-cli install --api-key your-api-key'
+                bat 'datadog-agent start'
             }
         }
     }
