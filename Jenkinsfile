@@ -28,7 +28,7 @@ pipeline {
         stage('SonarCloud Analysis') {
                 steps {
                                 bat '''
-                    -Dsonar.host.url=https://sonarcloud.io \
+                    -Dsonar.host.url=https://sonarcloud.io ^
                     -Dsonar.token=1ff6b33727b1ace77eb4117fc636c057e8301cdf
                 '''
             }
