@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    environment {
-        // Set SonarQube environment variables if needed
-    }
     stages {
         stage('Checkout') {
             steps {
