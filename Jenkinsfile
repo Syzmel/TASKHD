@@ -33,7 +33,7 @@ pipeline {
 
         stage('Code Quality - SonarQube') {
             steps {
-                withSonarQubeEnv('MySonarQube') {
+                
                                  bat '''
                   sonar-scanner ^
                   -Dsonar.projectKey=TASKHD ^
@@ -43,7 +43,7 @@ pipeline {
                   -Dsonar.login=ae3e0cd85e60d4e43416a9ebf03d827702acd046
                   if %ERRORLEVEL% NEQ 0 exit /b 0
                 '''
-                }
+                
             }
         }
     }
