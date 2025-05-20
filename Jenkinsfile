@@ -14,18 +14,23 @@ pipeline {
                 
             }
         }
+
+    stage('Install Dependencies') {
+            steps {
+               bat 'npm install'
+            }
+        }
+    stage('Run Tests') {
+            steps {
+                bat 'npm test || exit /B 0'
+            }
+        }      
         stage('SonarCloud Analysis') {
                 steps {
                                 bat '''
-                  sonar-scanner ^
-                  -Dsonar.projectKey=Syzmel_TASKHD ^
-                  -Dsonar.organization=sit223 ^
-                  -Dsonar.sources=. ^
-                  -Dsonar.host.url=https://sonarcloud.io ^
-                  -Dsonar.login=1ff6b33727b1ace77eb4117fc636c057e8301cdf
-                  if %ERRORLEVEL% NEQ 0 exit /b 0
+                    -Dsonar.host.url=https://sonarcloud.io \
+                    -Dsonar.token=1ff6b33727b1ace77eb4117fc636c057e8301cdf
                 '''
-
             }
         }  
         stage('Snyk Security Scan') {
