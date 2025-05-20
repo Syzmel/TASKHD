@@ -13,7 +13,7 @@ pipeline {
                 
                                  bat '''
                   sonar-scanner ^
-                  -Dsonar.projectKey=TASKHD ^
+                  -Dsonar.projectKey=Syzmel_TASKHD ^
                   -Dsonar.organization=TASKHD ^
                   -Dsonar.sources=. ^
                   -Dsonar.host.url=https://sonarcloud.io ^
