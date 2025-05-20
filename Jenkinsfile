@@ -37,8 +37,8 @@ pipeline {
             }
             post {
                 always {
-                    bat 'dir target\\surefire-reports' // Debug: check if XMLs exist
-                    junit 'target/surefire-reports/*.xml'
+                    junit '**/target/surefire-reports/*.xml'   // unit tests
+                    junit '**/target/failsafe-reports/*.xml'   // integration/selenium tests (if any)
                 }
             }
         }
