@@ -27,18 +27,18 @@ pipeline {
         }
         stage('SonarCloud Analysis') {
                 steps {
-                                bat '''
-                  sonar-scanner ^
-                  -Dsonar.projectKey=Syzmel_TASKHD ^
-                  -Dsonar.organization=sit223 ^
-                  -Dsonar.sources=. ^
-                  -Dsonar.host.url=https://sonarcloud.io ^
-                  
-                  if %ERRORLEVEL% NEQ 0 exit /b 0
-                '''
-                
-            }
-        }  
+                  script {
+                      withSonarQubeEnv('Sonar') {
+                          bat "\"%scannerHome%\\bin\\sonar-scanner\" ^
+                              -Dsonar.projectKey=<project-key> ^
+                              -Dsonar.projectName=<project-name> ^
+                              -Dsonar.projectVersion=<project-version> ^
+                              -Dsonar.sources=<project-path>"
+                      }
+                  }
+              }
+           }
+         
         stage('Snyk Security Scan') {
             steps {
                 script {
