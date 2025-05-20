@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        maven 'Maven 3.8.8'   // Make sure this matches the Maven version installed on Jenkins
-        jdk 'JDK 17'          // Make sure JDK is installed and configured in Jenkins
-    }
 
     environment {
         BUILD_DIR = 'target'
