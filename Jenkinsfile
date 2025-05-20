@@ -15,16 +15,16 @@ pipeline {
             }
         }
 
-    stage('Install Dependencies') {
-            steps {
-               bat 'npm install -g @sonar/scan'
-            }
-        }
     stage('Run Tests') {
             steps {
                 bat 'npm test || exit /B 0'
             }
         }      
+        stage('Install Dependencies') {
+            steps {
+               bat 'npm install -g @sonar/scan'
+            }
+        }
         stage('SonarCloud Analysis') {
                 steps {
                                 bat '''
