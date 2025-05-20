@@ -35,11 +35,11 @@ pipeline {
             steps {
                                 bat '''
                   sonar-scanner ^
-                  -Dsonar.projectKey=8-2cdevsecops-2 ^
-                  -Dsonar.organization=8.2CDevSecOps-2 ^
+                  -Dsonar.projectKey=sit223 ^
+                  -Dsonar.organization=TASKHD ^
                   -Dsonar.sources=. ^
                   -Dsonar.host.url=https://sonarcloud.io ^
-                  -Dsonar.login=ae3e0cd85e60d4e43416a9ebf03d827702acd046
+                  -Dsonar.login=1920f1315c4d877556bdd678ed9ba63ed2402a2b
                   if %ERRORLEVEL% NEQ 0 exit /b 0
                 '''
 
