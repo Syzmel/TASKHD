@@ -1,22 +1,33 @@
 pipeline {
     agent any
-
+    environment {
+        // Set SonarQube environment variables if needed
+    }
     stages {
-        stage('Test') {
+        stage('Checkout') {
             steps {
-                // Set environment variables (replace with your actual values)
-                bat 'echo CODE_CLIMATE_REPO_ID=eb159807-a6c3-4320-9a51-435fc9a82510'
-                bat 'echo CODE_CLIMATE_TOKEN=qltcw_gppEbpHCdusHDMR4'
-
-                // Before-build command (before your tests)
-                bat "cc-test-reporter before-build"
-
-                // Run your tests
-                bat "mvn test"
-
-                // After-build command (after your tests)
-                bat "cc-test-reporter after-build"
+                git 'https://github.com/Syzmel/TASKHD.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                // Your build commands, e.g., Maven/Gradle
+                bat 'echo Building...'
+            }
+        }
+        stage('Code Quality Analysis') {
+            steps {
+                // Run SonarQube scanner
+                withSonarQubeEnv('SonarQube') {
+                    bat 'sonar-scanner -Dsonar.projectKey=TASKHD -Dsonar.sources=.' // Adjust according to your language/tools
+                }
             }
         }
     }
+    post {
+        always {
+            // Optional: quality gates, reports
+        }
+    }
 }
+
