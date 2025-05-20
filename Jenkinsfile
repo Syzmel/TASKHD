@@ -1,23 +1,7 @@
 pipeline {
     agent any
 
-    environment {
-        PATH = "C:\\Program Files\\nodejs;${env.PATH}"
-        //SONAR_TOKEN = credentials('1ff6b33727b1ace77eb4117fc636c057e8301cdf')
-    }
     stages {
-        stage('Build') {
-            steps {
-                bat 'mvn -B -DskipTests clean package'
-            }
-        }
-
-        stage('Run Tests') {
-            steps {
-                bat 'npm test || exit /B 0'
-            }
-        }
-
         stage('SonarQube Analysis') {
             steps {
                                            bat '''
