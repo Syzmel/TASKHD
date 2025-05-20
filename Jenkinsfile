@@ -30,10 +30,10 @@ pipeline {
                   script {
                       withSonarQubeEnv('Sonar') {
                           bat "\"%scannerHome%\\bin\\sonar-scanner\" ^
-                              -Dsonar.projectKey=<project-key> ^
-                              -Dsonar.projectName=<project-name> ^
-                              -Dsonar.projectVersion=<project-version> ^
-                              -Dsonar.sources=<project-path>"
+                              -Dsonar.projectKey=Syzmel_TASKHD ^
+                              -Dsonar.projectName=TASKHD ^
+                              -Dsonar.projectVersion=1.0 ^
+                              -Dsonar.sources=C:\\TASKHD\\src"
                       }
                   }
               }
