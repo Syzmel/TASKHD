@@ -10,43 +10,34 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                // In a Windows environment, use "bat" commands.
-                // Example using Maven to build and create a JAR file.
                 bat 'mvn -B -DskipTests clean package'
-                // Archive the build artifact so it can be used in later stages.
-                
             }
         }
 
-    stage('Run Tests') {
+        stage('Run Tests') {
             steps {
                 bat 'npm test || exit /B 0'
             }
-        }      
-        stage('Install Dependencies') {
+        }
+
+        stage('SonarQube Analysis') {
             steps {
-               bat 'npm install -g @sonar/scan'
+                script {
+                    withSonarQubeEnv('Sonar') {
+                        bat "\"C:\\TASKHD\\bin\\sonar-scanner\" ^
+                            -Dsonar.projectKey=Syzmel_TASKHD ^
+                            -Dsonar.projectName=TASKHD ^
+                            -Dsonar.projectVersion=1.0 ^
+                            -Dsonar.sources=C:\\TASKHD\\src"
+                    }
+                }
             }
         }
-        stage('SonarCloud Analysis') {
-                steps {
-                  script {
-                      withSonarQubeEnv('Sonar') {
-                          bat "\"%scannerHome%\\bin\\sonar-scanner\" ^
-                              -Dsonar.projectKey=Syzmel_TASKHD ^
-                              -Dsonar.projectName=TASKHD ^
-                              -Dsonar.projectVersion=1.0 ^
-                              -Dsonar.sources=C:\\TASKHD\\src"
-                      }
-                  }
-              }
-           }
-         
+
         stage('Snyk Security Scan') {
             steps {
                 script {
-                    def snykTokenId = '0fd70700-dcdd-4e80-a424-85129e1d5c55'
-                    // ... other Snyk build step configurations ...
+                    bat "snyk test --org=your-org-name --token=0fd70700-dcdd-4e80-a424-85129e1d5c55"
                 }
             }
         }
