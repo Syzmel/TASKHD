@@ -32,9 +32,6 @@ pipeline {
         }
 
         stage('Code Quality - SonarQube') {
-            environment {
-                SONAR_SCANNER_OPTS = "-Xmx1024m"
-            }
             steps {
                 withSonarQubeEnv('MySonarQube') {
                                  bat '''
