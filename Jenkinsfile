@@ -13,8 +13,8 @@ pipeline {
                 
                                  bat '''
                   sonar-scanner ^
-                  -Dsonar.projectKey=8-2cdevsecops-2 ^
-                  -Dsonar.organization=8.2CDevSecOps-2 ^
+                  -Dsonar.projectKey=TASKHD ^
+                  -Dsonar.organization=TASKHD ^
                   -Dsonar.sources=. ^
                   -Dsonar.host.url=https://sonarcloud.io ^
                   -Dsonar.login=ae3e0cd85e60d4e43416a9ebf03d827702acd046
