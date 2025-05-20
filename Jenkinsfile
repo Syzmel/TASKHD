@@ -27,8 +27,6 @@ pipeline {
                             -Dsonar.projectVersion=1.0 ^
                             -Dsonar.sources=C:\\TASKHD\\src ^
                          '''
-                    }
-                }
             }
         }
 
