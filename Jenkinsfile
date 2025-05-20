@@ -33,7 +33,7 @@ pipeline {
                   -Dsonar.organization=sit223 ^
                   -Dsonar.sources=. ^
                   -Dsonar.host.url=https://sonarcloud.io ^
-                  -Dsonar.login=1ff6b33727b1ace77eb4117fc636c057e8301cdf
+                  
                   if %ERRORLEVEL% NEQ 0 exit /b 0
                 '''
                 
