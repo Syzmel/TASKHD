@@ -1,28 +1,8 @@
 pipeline {
     agent any 
-    environment {
-        AWS_CREDENTIALS = credentials('aws-creds-id')   // AWS IAM credentials stored in Jenkins
-        SONAR_TOKEN      = credentials('sonar-token-id')// SonarQube token in Jenkins Credentials
-    }
+
     stages {
-        stage('Build Frontend') {
-            steps {
-                // Build the frontend (e.g. React/Vue) with npm
-                dir('frontend') {
-                    bat 'npm install'
-                    bat 'npm run build' 
-                }
-                archiveArtifacts artifacts: 'frontend/build/**', fingerprint: true
-            }
-        }
-        stage('Build Backend') {
-            steps {
-                // Build the Java backend with Maven, skipping tests for speed
-                bat 'mvn clean package -DskipTests'
-                // Archive the JAR artifact for deployment
-                archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
-            }
-        }
+
         stage('Test (Selenium)') {
             steps {
                 // Start the application in background for testing
