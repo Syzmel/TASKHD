@@ -15,10 +15,9 @@ pipeline {
         stage('Code Quality Analysis') {
             steps {
                 // Run SonarQube scanner
-                withSonarQubeEnv('SonarQube') {
-                    bat 'sonar-scanner -Dsonar.projectKey=TASKHD -Dsonar.sources=.' // Adjust according to your language/tools
+                bat 'sonar-scanner -Dsonar.projectKey=TASKHD -Dsonar.sources=.' // Adjust according to your language/tools
                 }
             }
         }
     }
-}
+
