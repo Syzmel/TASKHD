@@ -12,7 +12,7 @@ pipeline {
                 bat "cc-test-reporter before-build"
 
                 // Run your tests
-                bat "your-test-command"
+                bat "mvn test"
 
                 // After-build command (after your tests)
                 bat "cc-test-reporter after-build"
