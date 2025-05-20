@@ -24,9 +24,4 @@ pipeline {
             }
         }
     }
-    post {
-        always {
-            // Optional: quality gates, reports
-        }
-    }
 }
