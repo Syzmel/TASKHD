@@ -20,9 +20,7 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-                script {
-                    withSonarQubeEnv('Sonar') {
-                            bat '''
+                                           bat '''
                             sonar-scanner ^
                             -Dsonar.projectKey=Syzmel_TASKHD ^
                             -Dsonar.projectName=TASKHD ^
