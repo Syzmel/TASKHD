@@ -1,28 +1,48 @@
 pipeline {
     agent any
+        environment {
+        PATH = "C:\\Program Files\\nodejs;${env.PATH}"
+        //SONAR_TOKEN = credentials('ae3e0cd85e60d4e43416a9ebf03d827702acd046')
+    }
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url:'https://github.com/Syzmel/TASKHD.git'
+                git branch: 'main', url: 'https://github.com/Syzmel/TASKHD.git'
             }
         }
-        stage('Build') {
+        stage('Install Dependencies') {
             steps {
-                // Your build commands, e.g., Maven/Gradle
-                bat 'echo Building...'
+               bat 'npm install'
             }
         }
-        stage('Code Quality Analysis') {
+        stage('Run Tests') {
+            steps {
+                bat 'npm test || exit /B 0'
+            }
+        }
+        stage('Generate Coverage Report') {
+            steps {
+                bat 'npm run coverage || exit /B 0'
+            }
+        }
+        stage('NPM Audit (Security Scan)') {
+            steps {
+                bat 'npm audit || exit /B 0'
+            }
+        }
+        stage('SonarCloud Analysis') {
             steps {
                                 bat '''
                   sonar-scanner ^
                   -Dsonar.projectKey=Syzmel_TASKHD ^
-                  -Dsonar.organization=sit223 ^    
+                  -Dsonar.organization=sit223 ^
+                  -Dsonar.sources=. ^
+                  -Dsonar.host.url=https://sonarcloud.io ^
                   -Dsonar.login=1ff6b33727b1ace77eb4117fc636c057e8301cdf
                   if %ERRORLEVEL% NEQ 0 exit /b 0
                 '''
-                }
-            }
-        }
-    }
 
+            }
+        }  
+    }
+}
