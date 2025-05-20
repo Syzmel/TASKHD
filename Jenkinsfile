@@ -36,14 +36,14 @@ pipeline {
             echo "Pipeline completed."
         }
     }
-      stage('Code Quality - SonarQube') {
+        stage('Code Quality - SonarQube') {
             environment {
                   SONAR_SCANNER_OPTS = "-Xmx1024m"
     }
-      steps {
-        withSonarQubeEnv('MySonarQube') {
+        steps {
+         withSonarQubeEnv('MySonarQube') {
             bat 'mvn sonar:sonar -Dsonar.projectKey=TASKHD -Dsonar.host.url=http://localhost:9000 -Dsonar.login=${SONAR_AUTH_TOKEN}'
           }
       }
-  }
+   }
 }
