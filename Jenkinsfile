@@ -1,20 +1,10 @@
 pipeline {
     agent any
 
-    tools {
-        maven 'Maven 3.8.8'  // Make sure this is configured in Jenkins
-        jdk 'JDK 17'
-    }
-
-    environment {
-        BUILD_DIR = 'target'
-        ARTIFACT_NAME = 'taskhd.jar'
-    }
-
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/Syzmel/TASKHD.git'
+                checkout scm
             }
         }
 
