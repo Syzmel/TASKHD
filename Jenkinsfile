@@ -8,28 +8,15 @@ pipeline {
             }
         }
 
-        stage('Build') {
-            steps {
-                echo "Building project with Maven..."
-                bat 'mvn clean package -DskipTests'
-            }
-            post {
-                success {
-                    echo "Build successful!"
-                    archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
-                }
-            }
-        }
-
         stage('Test') {
             steps {
                 echo "Running automated unit tests..."
-                bat 'mvn test'
+                bat 'mvn -q test'
             }
             post {
                 always {
                     echo "Publishing JUnit test results..."
-                    bat 'dir target\\surefire-reports' // Windows: debug check
+                    bat 'dir /s /b target\\surefire-reports'
                     junit '**/target/surefire-reports/*.xml'
                 }
                 success {
