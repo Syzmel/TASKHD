@@ -43,9 +43,7 @@ pipeline {
       steps {
         withSonarQubeEnv('MySonarQube') {
             bat 'mvn sonar:sonar -Dsonar.projectKey=TASKHD -Dsonar.host.url=http://localhost:9000 -Dsonar.login=${SONAR_AUTH_TOKEN}'
-        }
-    }
-}
-
-  
+          }
+      }
+  }
 }
