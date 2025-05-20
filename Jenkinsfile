@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        PATH = "C:\\Program Files\\nodejs;${env.PATH}"
+        SONAR_TOKEN = credentials('1ff6b33727b1ace77eb4117fc636c057e8301cdf')
     stages {
         stage('Build') {
             steps {
