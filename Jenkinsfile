@@ -9,14 +9,14 @@ pipeline {
         stage('Build') {
             steps {
                 // Your build commands, e.g., Maven/Gradle
-                sh 'echo Building...'
+                bat 'echo Building...'
             }
         }
         stage('Code Quality Analysis') {
             steps {
                 // Run SonarQube scanner
                 withSonarQubeEnv('SonarQube') {
-                    sh 'sonar-scanner -Dsonar.projectKey=TASKHD -Dsonar.sources=.' // Adjust according to your language/tools
+                    bat 'sonar-scanner -Dsonar.projectKey=TASKHD -Dsonar.sources=.' // Adjust according to your language/tools
                 }
             }
         }
