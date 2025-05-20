@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/Syzmel/TASKHD.git'
+                git branch: 'main', url:'https://github.com/Syzmel/TASKHD.git'
             }
         }
         stage('Build') {
