@@ -54,8 +54,7 @@ pipeline {
             }
             post {
                 always {
-                    junit '**/target/surefire-reports/*.xml'   // unit tests
-                    junit '**/target/failsafe-reports/*.xml'   // integration/selenium tests (if any)
+                      junit '**/target/*failsafe-reports*/TEST-*.xml, **/target/*surefire-reports*/TEST-*.xml'
                 }
             }
         }
