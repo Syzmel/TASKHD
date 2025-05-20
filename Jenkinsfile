@@ -17,7 +17,7 @@ pipeline {
 
     stage('Install Dependencies') {
             steps {
-               bat 'npm install'
+               bat 'npm install -g @sonar/scan'
             }
         }
     stage('Run Tests') {
