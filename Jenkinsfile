@@ -31,23 +31,7 @@ pipeline {
                       }
                 }
             }
-        stage('SonarCloud Analysis') {
-            steps {
-                                bat '''
-                  sonar-scanner ^
-                  -Dsonar.projectKey=sit223 ^
-                  -Dsonar.organization=TASKHD ^
-                  -Dsonar.sources=. ^
-                  -Dsonar.host.url=https://sonarcloud.io ^
-                  -Dsonar.login=1920f1315c4d877556bdd678ed9ba63ed2402a2b
-                  if %ERRORLEVEL% NEQ 0 exit /b 0
-                '''
 
-            }
-        }  
-
-
-      
         stage('Test') {
             steps {
                 bat 'mvn test'
