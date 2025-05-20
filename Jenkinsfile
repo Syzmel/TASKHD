@@ -1,10 +1,5 @@
 pipeline {
     agent any 
-    tools {
-        //jdk 'JDK11'             // Install JDK 11 via Manage Jenkins → Global Tool Configuration
-        //maven 'Maven3'         // Install Maven 3.x in Global Tool Configuration
-        //nodejs 'NodeJS14'      // Install NodeJS 14 (npm) via NodeJS Plugin
-    }
     environment {
         AWS_CREDENTIALS = credentials('aws-creds-id')   // AWS IAM credentials stored in Jenkins
         SONAR_TOKEN      = credentials('sonar-token-id')// SonarQube token in Jenkins Credentials
