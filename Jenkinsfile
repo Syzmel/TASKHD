@@ -14,7 +14,7 @@ pipeline {
                                  bat '''
                   sonar-scanner ^
                   -Dsonar.projectKey=Syzmel_TASKHD ^
-                  -Dsonar.organization=TASKHD ^
+                  -Dsonar.organization=Syzmel ^
                   -Dsonar.sources=. ^
                   -Dsonar.host.url=https://sonarcloud.io ^
                   -Dsonar.login=ae3e0cd85e60d4e43416a9ebf03d827702acd046
