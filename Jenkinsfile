@@ -37,7 +37,8 @@ pipeline {
                   -Dsonar.projectKey=Syzmel_TASKHD ^
                   -Dsonar.organization=sit223 ^
                   -Dsonar.sources=. ^
-                  -Dsonar.host.url=https://sonarcloud.io ^
+                  //-Dsonar.host.url=https://sonarcloud.io ^
+                  sonarQubeServerUrl 'http://your-sonarqube-server:9000'
                   -Dsonar.login=1ff6b33727b1ace77eb4117fc636c057e8301cdf
                   if %ERRORLEVEL% NEQ 0 exit /b 0
                 '''
