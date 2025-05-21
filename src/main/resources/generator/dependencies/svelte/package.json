@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "type": "module",
   "dependencies": {
-    "@babel/preset-env": "7.22.9",
+    "@babel/preset-env": "7.27.1",
     "@sveltejs/adapter-static": "2.0.3",
     "@sveltejs/kit": "2.20.6",
     "@testing-library/svelte": "4.2.3",
