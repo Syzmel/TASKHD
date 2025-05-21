@@ -40,7 +40,7 @@ pipeline {
                   -Dsonar.sources=. ^
                   
                   sonarQubeServerUrl 'http://your-sonarqube-server:9000'
-                  -Dsonar.login=1ff6b33727b1ace77eb4117fc636c057e8301cdf
+                  -Dsonar.login=77e2179c556089bac2e1c8c94c51df277eae3eca
                   if %ERRORLEVEL% NEQ 0 exit /b 0
                 '''
 
